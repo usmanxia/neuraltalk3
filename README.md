@@ -1,4 +1,3 @@
-# Neuraltalk2-tensorflow
 # Neuraltalk3
 This is a project form implementation of enhanced neuraltlk model and it's implementation in Tensorflow.
 
