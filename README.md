@@ -1,15 +1,12 @@
 # Neuraltalk2-tensorflow
-This is a toy project for myself to start to learn tensorflow.
+# Neuraltalk3
+This is a project form implementation of enhanced neuraltlk model and it's implementation in Tensorflow.
 
-I started to learn torch by learning from neuraltalk2, so I started my tensorflow with this too.
 
-I think this project is good for those who were familiar with neuraltalk2 in torch, because the main pipeline is almost the same. I don't know if it's a good tutorial to learn tensorflow, because the comments are still limited so far.
-
-Without finetuning on VGG, my code gives CIDEr score ~0.65 on validation set (in 50000 iterations).
-
-Currently if you want to use my code, you need to train the model from scratch (except VGG-16).
 
 # TODO:
+- Implementation of block 1
+- Implementation of block 2
 - ~~Finetuning VGG seems doesn't work. Need to be fixed.~~
 - ~~No need to initialize from npy when having saved weight.~~
 - Tensorflow stype file loading. (Multi-thread image loading)
@@ -66,7 +63,7 @@ The train script will take over, and start dumping checkpoints into the folder s
 
 If you'd like to evaluate BLEU/METEOR/CIDEr scores during training in addition to validation cross entropy loss, use `--language_eval 1` option, but don't forget to download the [coco-caption code](https://github.com/tylin/coco-caption) into `coco-caption` directory.
 
-**A few notes on training.** To give you an idea, with the default settings one epoch of MS COCO images is about 7500 iterations. 1 epoch of training (with no finetuning - notice this is the default) takes about 45 minutes and results in validation loss ~2.7 and CIDEr score of ~0.5. By iteration 50,000 CIDEr climbs up to about 0.65 (validation loss at about 2.4). 
+**A few notes on training.** To give you an idea, with the default settings one epoch of MS COCO images is about 7500 iterations. 1 epoch of training (with no finetuning - notice this is the default) takes about 45 minutes and results in validation loss ~2.7 and CIDEr score of ~0.5. By iteration 50,000 CIDEr climbs up to about 0.65 (validation loss at about 2.4).
 
 ### Caption images after training
 
