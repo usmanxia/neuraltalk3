@@ -49,11 +49,7 @@ Note that: the split used here can not be used for research. You can email me to
 
 ~~Download or generate a tensorflow version pretrained vgg-16 [tensorflow-vgg16](https://github.com/ry/tensorflow-vgg16). ~~
 
-I borrow the [machrisaa/tensorflow-vgg](https://github.com/machrisaa/tensorflow-vgg). I made some modification.
-- Add a variable `training` to control the evaluation and training mode of model (in principle it's controling the dropout probability).
-- Define all the weights and biases as Variable (previously constant).
-
-You need to download the npy file of vgg, [vgg16](https://dl.dropboxusercontent.com/u/50333326/vgg16.npy), [vgg19](https://dl.dropboxusercontent.com/u/50333326/vgg19.npy). Put the file somewhere (e.g. a `models` directory), and we're ready to train!
+You need to download the npy file of vgg, [vgg16](https://mega.nz/#!YU1FWJrA!O1ywiCS2IiOlUCtCpI6HTJOMrneN-Qdv3ywQP5poecM), [vgg19](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs). Put the file somewhere (e.g. a `models` directory), and we're ready to train!
 
 ```bash
 $ python train.py --input_json coco/cocotalk.json --input_h5 coco/cocotalk.h5 --checkpoint_path ./log --save_checkpoint_every 2000 --val_images_use 3200
