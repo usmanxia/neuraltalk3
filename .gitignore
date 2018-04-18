@@ -3,3 +3,4 @@ models/
 *.h5
 *.json
 vis/
+coco/images/
