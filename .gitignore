@@ -1,3 +1,5 @@
 *.pyc
-models
-
+models/
+*.h5
+*.json
+vis/
