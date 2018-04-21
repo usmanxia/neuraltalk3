@@ -56,7 +56,7 @@ def train(opt):
         # Initialize the variables, and restore the variables form checkpoint if there is.
         # and initialize the writer
         model.initialize(sess)
-        
+
         # Assign the learning rate
         if epoch > opt.learning_rate_decay_start and opt.learning_rate_decay_start >= 0:
             frac = (epoch - opt.learning_rate_decay_start) / opt.learning_rate_decay_every
@@ -103,18 +103,19 @@ def train(opt):
                 # eval model
                 eval_kwargs = {'val_images_use': opt.val_images_use,
                                 'split': 'val',
-                                'language_eval': opt.language_eval, 
+                                'language_eval': opt.language_eval,
                                 'dataset': opt.input_json}
                 val_loss, predictions, lang_stats = eval_split(sess, model, loader, eval_kwargs)
 
                 # Write validation result into summary
                 summary = tf.Summary(value=[tf.Summary.Value(tag='validation loss', simple_value=val_loss)])
                 model.summary_writer.add_summary(summary, iteration)
-                for k,v in lang_stats.iteritems():
-                    summary = tf.Summary(value=[tf.Summary.Value(tag=k, simple_value=v)])
-                    model.summary_writer.add_summary(summary, iteration)
-                model.summary_writer.flush()
-                val_result_history[iteration] = {'loss': val_loss, 'lang_stats': lang_stats, 'predictions': predictions}
+                if opt.language_eval == 1:
+                   for k,v in lang_stats.iteritems():
+                       summary = tf.Summary(value=[tf.Summary.Value(tag=k, simple_value=v)])
+                       model.summary_writer.add_summary(summary, iteration)
+                   model.summary_writer.flush()
+                   val_result_history[iteration] = {'loss': val_loss, 'lang_stats': lang_stats, 'predictions': predictions}
 
                 # Save model if is improving on validation result
                 if opt.language_eval == 1:
@@ -198,7 +199,7 @@ def eval_split(sess, model, loader, eval_kwargs):
             if verbose:
                 for sent in sents:
                     print('image %s: %s' %(entry['image_id'], sent))
-        
+
         ix0 = data['bounds']['it_pos_now']
         ix1 = data['bounds']['it_max']
         if val_images_use != -1:
@@ -214,12 +215,12 @@ def eval_split(sess, model, loader, eval_kwargs):
             break
 
     if language_eval == 1:
-        lang_stats = eval_utils.language_eval(dataset, predictions)
+        eval_kwargs = eval_utils.language_eval(dataset, predictions)
 
     # Switch back to training mode
     sess.run(tf.assign(model.training, True))
     sess.run(tf.assign(model.cnn_training, True))
-    return loss_sum/loss_evals, predictions, lang_stats
+    return loss_sum/loss_evals, predictions, eval_kwargs
 
 opt = opts.parse_opt()
 train(opt)
