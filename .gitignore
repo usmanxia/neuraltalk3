@@ -6,3 +6,4 @@ vis/
 coco/images/
 *.jpg
 coco/
+log/
